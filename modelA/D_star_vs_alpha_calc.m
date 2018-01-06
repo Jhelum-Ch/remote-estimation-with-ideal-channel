@@ -1,12 +1,20 @@
+%This code computes the costly performance of the remote-state estimation
+%system with one transmitter and one remote estimator connected by an ideal
+%channel
+%Written by Jhelum Chakravorty
+%Please see for theoretical reference the paper Jhelum Chakravorty and Aditya Mahajan, "Fundamental limits of remote estimation of autoregressive Markov processes 
+%under communication constraints", IEEE Transactions on Automatic Control, March 2017.
+
+
+
 clear all
 clc
 
 format long
 
-p=0.3;
+p=0.3; %birth-rate
 
-beta=1.0
-%beta=[0.9;0.95;1.0];
+beta=[0.9;0.95;1.0]; %discount factor
 
 color=['b';'r';'k'];
 
@@ -72,62 +80,6 @@ end
 end
 
 
-% %Calculation of D_per
-% 
-% T_vec=linspace(1,100,100);
-% alpha_per_vec=1./T_vec;
-% D_per=zeros(length(beta),length(T_vec));
-% 
-% for i=1:length(beta)
-% for j=1:length(T_vec)
-%     t=T_vec(j);
-%     [L_t,M_t]=calcLM(t,lambda(i),beta(i),p);
-%     D_per(i,j)=(L_t*(1-beta(i)))/(1-beta(i)^t);
-% end
-% end
-
-
-%Plots
-% figure
-% plot(alpha,D_opt(1,:));
-% ylim([0 3]);
-% set(gca,'PlotBoxAspectRatio',[5 3 1])
-% xlabel('$\alpha$','Interpreter','latex');
-% ylabel('$D^*_\beta(\alpha)$','Interpreter','latex');
-% 
-% figure 
-% plot(alpha,D_opt(2,:),'r');
-% ylim([0 3]); 
-% set(gca,'PlotBoxAspectRatio',[5 3 1])
-% xlabel('$\alpha$','Interpreter','latex');
-% ylabel('$D^*_\beta(\alpha)$','Interpreter','latex');
-% 
-% figure
-% plot(alpha,D_opt(3,:),'k');
-% ylim([0 3]);
-% set(gca,'PlotBoxAspectRatio',[5 3 1])
-% xlabel('$\alpha$','Interpreter','latex');
-% ylabel('$D^*_\beta(\alpha)$','Interpreter','latex');
-
-% figure
-% plot(alpha_per_vec,D_per(2,:),'k.');
-% ylim([0 3]);
-% set(gca,'PlotBoxAspectRatio',[5 3 1])
-% xlabel('$\alpha$','Interpreter','latex');
-% ylabel('$D^{per}_\beta(\alpha)$','Interpreter','latex');
-
-% figure
-% line(alpha_per_vec,D_per(2,:));
-% ylim([0 3]);
-% set(gca,'PlotBoxAspectRatio',[5 3 1])
-% % xlabel('$\alpha$','Interpreter','latex');
-% % ylabel('$D^{per}_\beta(\alpha)$','Interpreter','latex');
-% hold on
-% plot(alpha,D_opt(2,:),'r');
-% ylim([0 3]); 
-% set(gca,'PlotBoxAspectRatio',[5 3 1])
-% xlabel('$\alpha$','Interpreter','latex');
-% ylabel('Distortion-transmission function','Interpreter','latex');
 
 for i=1:length(beta)
 plot(alpha,D_opt(i,:),color(i));
@@ -137,3 +89,4 @@ ylim([0 3]);
 set(gca,'PlotBoxAspectRatio',[5 3 1])
 xlabel('$\alpha$','Interpreter','latex');
 ylabel('$D^*_\beta(\alpha)$','Interpreter','latex');
+legend('\beta = 0.9','\beta = 0.95','\beta = 0.1','Location','northeast','Interpreter','latex');     

@@ -5,23 +5,12 @@ function [lambda, D_k1, N_k1] = compute_values(k, beta, var,a)
     AbsTol = 1e-8;
     RelTol = 1e-6;
 
-    % The epsilon is used to calculate the derivative numerically
-    %for cauchy distribution
-    scaling_par=1;
-    location_par=0;
-    
+   
     epsilon = 1e-4;
 
     RHS_M  = @(e) e.^0;
     RHS_L  = @(e) e.^2;
-    %kernel = @(e,x) (1/sqrt(2*pi*var)) * exp(-(x-a*e).^2 / (2*var)); %Gaussian
-    %kernel=@(e,x) (1/pi)*(scaling_par./((x-e-location_par).^2 + (scaling_par)^2));  %Cauchy
-
-    %For uniform distribution
-    state_max=15;
-
-    kernel=@(e,x) (abs((x-e)) < state_max)*(1/(2*state_max)); % Uniform
-
+    kernel = @(e,x) (1/sqrt(2*pi*var)) * exp(-(x-a*e).^2 / (2*var)); %Gaussian
 
     k1 = k;
     k2 = k1 + epsilon;
